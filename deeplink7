@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+<head>
+    <script>
+        
+function openDeepLink(url: string, options?: Partial<{ onOpen?: () => void; onFail?: () => void; waitTime?: number }>) {
+  let timeout: NodeJS.Timeout;
+  let interval: NodeJS.Timer;
+  let visible: DocumentVisibilityState = 'visible';
+
+   const handleOpen = () => {
+      window.removeEventListener('visibilitychange', () => true);
+      options?.onOpen?.();
+  };
+  const handleResponse = () => {
+    if (visible === 'visible') return options?.onFail?.();
+    clearInterval(interval);
+    handleOpen();
+  };
+
+  try {
+    window.addEventListener('visibilitychange', (e) => (visible = (e.target as Document)?.visibilityState));
+    timeout = setTimeout(handleResponse, options?.waitTime || 5000);
+
+    interval = setInterval(() => {
+      if (visible === 'hidden') {
+        clearTimeout(timeout);
+        handleResponse();
+      }
+    }, options?.waitTime || 5000);
+
+    window.location.href = url;
+  } catch (error) {
+    options?.onFail?.();
+  }
+}
+
+openDeepLink("uibank://commonlink/movepage?menucode=UIET901000&name=korea&age=24", {onOpen: console.log, onFail: console.error});
+    </script>
+</head>
+
+<body>
+       Hello 007
+</body>
+
+</html>
+
