@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <script>
-        var launchAppUrl = 'applinks:m7bw.adj.st?/home?t=ext_link&c=1&menucode=UIPR301001// 'uibank://commonlink/movepage?menucode=UIET901000&name=korea&age=24 '; // 앱 스키마
+        var launchAppUrl = 'uibank://commonlink/movepage?menucode=UIET901000&name=korea&age=24 '; // 앱 스키마
         var timer;    // 타이머
         var schInterval;
         var userAgent = navigator.userAgent.toLowerCase();
@@ -66,7 +66,7 @@
                 if(isAndroid){
                     location.href ="https://apps.apple.com/kr/app/id1591552475";
                 }else if(isIOS){
-                    location.href ="https://apps.apple.com/kr/app/id1591552475";
+                    location.href = "itms-apps://itunes.apple.com/app/id1591552475";//"https://apps.apple.com/kr/app/id1591552475";
                 }
                 clearInterval(schInterval);
             }, 2000);
@@ -75,7 +75,7 @@
 </head>
 
 <body>
-    Hello 003
+    Hello 004
 </body>
 
 </html>
